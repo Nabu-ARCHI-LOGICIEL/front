@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import AuthSuccess from "./pages/authsuccess";
 import RegisterGoogle from "./pages/authGoogleRegister";
 import Admin from "./pages/Admin"; 
+import TempAddDiscord from "./pages/tempAddDiscord";
 
 export default function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -69,6 +70,7 @@ export default function App() {
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/auth/success" element={<AuthSuccess />} />
 					<Route path="/auth/register" element={<RegisterGoogle />} />
+					<Route path="/auth/tempadd" element={<TempAddDiscord />} />
 					<Route path="/admin" element={<Admin />} />
 				</Routes>
 			</main>
