@@ -1,5 +1,5 @@
-import { drawChair } from "@/draw/chair";
-import { Chair, Tool, Coords } from "@/types/interfaces";
+import { drawSeat } from "@/draw/seat";
+import { Seat, Tool, Coords } from "@/types/interfaces";
 import { ETool } from "@/types/enums";
 
 export function drawPreview(
@@ -8,9 +8,9 @@ export function drawPreview(
 	cellSize: number,
 	rotation: number,
 	tool: Tool,
-	chairs: Map<string, Chair>,
+	seats: Map<string, Seat>,
 	offset: Coords,
-	chairImg: HTMLImageElement,
+	seatImg: HTMLImageElement,
 	deleteImg: HTMLImageElement,
 ) {
 	const x = cursorGridCoords.x * cellSize + offset.x;
@@ -20,22 +20,22 @@ export function drawPreview(
 
 	switch (tool.name) {
 		case ETool.Delete: {
-			const chair = chairs.get(stringPosition);
-			if (!chair) return;
+			const seat = seats.get(stringPosition);
+			if (!seat) return;
 
 			ctx.drawImage(deleteImg, x, y, cellSize, cellSize);
 			break;
 		}
 
 		case ETool.Add: {
-			if (chairs.get(stringPosition)) return;
+			if (seats.get(stringPosition)) return;
 
-			const previewChair: Chair = {
+			const previewSeat: Seat = {
 				coords: { x: cursorGridCoords.x, y: cursorGridCoords.y },
 				rotation,
 			};
 
-			drawChair(ctx, previewChair, cellSize, 0.4, offset, chairImg);
+			drawSeat(ctx, previewSeat, cellSize, 0.4, offset, seatImg);
 			break;
 		}
 

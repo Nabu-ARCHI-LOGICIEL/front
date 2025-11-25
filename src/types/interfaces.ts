@@ -1,6 +1,6 @@
 import { ETool } from "@/types/enums";
 
-export interface Chair {
+export interface Seat {
 	coords: Coords;
 	rotation: number;
 }

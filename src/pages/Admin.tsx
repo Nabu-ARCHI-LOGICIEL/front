@@ -8,9 +8,9 @@ import {
 import { handleKeyDown } from "@/handler/keyboard";
 import { drawPreview } from "@/draw/preview";
 import { drawGrid } from "@/draw/grid";
-import { drawChairs } from "@/draw/chair";
+import { drawSeats } from "@/draw/seat";
 import { clearScreen } from "@/draw/clear";
-import { Coords, Tool, Chair } from "@/types/interfaces";
+import { Coords, Tool, Seat } from "@/types/interfaces";
 import { ETool } from "@/types/enums";
 
 const TOOL_LIST: Map<ETool, Tool> = new Map([
@@ -18,16 +18,16 @@ const TOOL_LIST: Map<ETool, Tool> = new Map([
 		ETool.Add,
 		{
 			name: ETool.Add,
-			description: "add chair",
+			description: "add seat",
 			shortcut: "a",
-			img: "/chair.svg",
+			img: "/seat.svg",
 		},
 	],
 	[
 		ETool.Delete,
 		{
 			name: ETool.Delete,
-			description: "delete a chair",
+			description: "delete a seat",
 			shortcut: "d",
 			img: "/delete.svg",
 		},
@@ -42,7 +42,7 @@ export default function App() {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
-	const chairs = useRef<Map<string, Chair>>(new Map());
+	const seats = useRef<Map<string, Seat>>(new Map());
 
 	const cellSize = useRef<number>(0);
 
@@ -79,20 +79,20 @@ export default function App() {
 
 		drawGrid(canvas, ctx, cellSize.current, LINE_WEIGHT, offset.current);
 
-		const chairImg = new Image();
-		chairImg.src = "/chair.svg";
+		const seatImg = new Image();
+		seatImg.src = "/seat.svg";
 
 		const deleteImg = new Image();
 		deleteImg.src = "/delete.svg";
 
-		drawChairs(
+		drawSeats(
 			ctx,
-			chairs.current,
+			seats.current,
 			cellSize.current,
 			cursorGridCoords.current,
 			selectedTool.current,
 			offset.current,
-			chairImg,
+			seatImg,
 		);
 		drawPreview(
 			ctx,
@@ -100,9 +100,9 @@ export default function App() {
 			cellSize.current,
 			rotation.current,
 			TOOL_LIST.get(selectedTool.current)!,
-			chairs.current,
+			seats.current,
 			offset.current,
-			chairImg,
+			seatImg,
 			deleteImg,
 		);
 	}
@@ -167,12 +167,20 @@ export default function App() {
 					</button>
 				))}
 			</div>
+			<button
+				className="h-15 w-15 absolute border bg-white left-30 top-4"
+				onClick={() => {
+					console.log(seats.current);
+				}}
+			>
+				<img src="/save.svg" />
+			</button>
 			<canvas
 				ref={canvasRef}
 				onMouseDown={(e) => {
 					handleMouseDown(
 						e.nativeEvent,
-						chairs,
+						seats,
 						cursorGridCoords.current!,
 						rotation.current!,
 						TOOL_LIST.get(selectedToolState)!,

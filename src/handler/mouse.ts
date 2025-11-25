@@ -1,10 +1,10 @@
-import { Coords, Tool, Chair } from "@/types/interfaces";
+import { Coords, Tool, Seat } from "@/types/interfaces";
 import { ETool, EClick } from "@/types/enums";
 import { RefObject } from "react";
 
 export function handleMouseDown(
 	e: MouseEvent,
-	chairs: RefObject<Map<string, Chair>>,
+	seats: RefObject<Map<string, Seat>>,
 	cursorGridCoords: Coords,
 	rotation: number,
 	tool: Tool,
@@ -15,7 +15,7 @@ export function handleMouseDown(
 ) {
 	switch (e.button) {
 		case EClick.Left:
-			handleLeftClick(tool, chairs, cursorGridCoords, rotation);
+			handleLeftClick(tool, seats, cursorGridCoords, rotation);
 			break;
 		case EClick.Middle:
 			handleMiddleClickDown(
@@ -62,7 +62,7 @@ function handleMiddleClickUp(isMiddleClickDown: RefObject<boolean>) {
 
 function handleLeftClick(
 	tool: Tool,
-	chairs: RefObject<Map<string, Chair>>,
+	seats: RefObject<Map<string, Seat>>,
 	cursorGridCoords: Coords,
 	rotation: number,
 ) {
@@ -70,23 +70,23 @@ function handleLeftClick(
 
 	switch (tool.name) {
 		case ETool.Add: {
-			if (chairs.current.get(stringCoords)) return;
+			if (seats.current.get(stringCoords)) return;
 
-			const chairCoords: Coords = {
+			const seatCoords: Coords = {
 				x: cursorGridCoords.x,
 				y: cursorGridCoords.y,
 			};
 
-			const chair: Chair = {
-				coords: chairCoords,
+			const seat: Seat = {
+				coords: seatCoords,
 				rotation: rotation,
 			};
 
-			chairs.current.set(stringCoords, chair);
+			seats.current.set(stringCoords, seat);
 			break;
 		}
 		case ETool.Delete:
-			chairs.current.delete(stringCoords);
+			seats.current.delete(stringCoords);
 			break;
 		default:
 			break;

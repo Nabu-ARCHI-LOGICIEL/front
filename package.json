@@ -17,6 +17,7 @@
         "react-dom": "^19",
         "react-router-dom": "^7.9.6",
         "tailwindcss": "^4.1.17",
+        "tsc": "^2.0.4",
         "vite-plugin-pages": "^0.33.1"
     },
     "devDependencies": {
