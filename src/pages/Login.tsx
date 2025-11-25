@@ -1,4 +1,6 @@
 import { login } from "@/auth";
+import DiscordButton from "@/componants/discordButton";
+import GoogleButton from "@/componants/googleButton";
 import { useState } from "react";
 
 export default function Login() {
@@ -37,14 +39,9 @@ export default function Login() {
                 {error && <p style={{color:"red"}}>{error}</p>}
             </form> */}
 			<br />
-			<button
-				onClick={() =>
-					(window.location.href =
-						"http://localhost:3000/auth/google/login")
-				}
-			>
-				GOOGLE
-			</button>
+			<GoogleButton/>
+			<br />
+			<DiscordButton/>
 		</div>
 	);
 }
