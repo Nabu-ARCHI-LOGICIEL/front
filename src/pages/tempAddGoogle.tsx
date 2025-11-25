@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 type tempInfo = {
     username:string,
     email:string,
-    haveGoogle:boolean,
+    haveDiscord:boolean,
 }
 
-export default function TempAddDiscord() {
+export default function TempAddGoogle() {
     const [info, setInfo] = useState<tempInfo>();
     const [username, setUsername] = useState("");
     const [error, setError] = useState("");
@@ -17,7 +17,7 @@ export default function TempAddDiscord() {
             setError("Lien invalide");
             return;
         }
-        fetch(`http://localhost:3000/auth/discord/tempadd?tempId=${tempId}`)
+        fetch(`http://localhost:3000/auth/google/tempadd?tempId=${tempId}`)
             .then((r) => r.json())
             .then((d) => {
                 setInfo(d);
@@ -28,7 +28,7 @@ export default function TempAddDiscord() {
 
     async function submit(e: React.FormEvent) {
         e.preventDefault();
-        const res = await fetch("http://localhost:3000/auth/discord/sync", {
+        const res = await fetch("http://localhost:3000/auth/google/sync", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ tempId }),
@@ -50,7 +50,7 @@ export default function TempAddDiscord() {
         <div style={{ maxWidth: 420, margin: "40px auto" }}>
             <h2>Bienvenue {info.username}</h2>
             <br />
-            <p> Vous avez deja un compte Nabu {info.haveGoogle ? "(avec google)" : ""} : {info.email}</p>
+            <p> Vous avez deja un compte Nabu {info.haveDiscord ? "(avec discord)" : ""} : {info.email}</p>
             <br />
             <br />
             <p>Synchroniser votre compte discord a votre compte Nabu :</p>
